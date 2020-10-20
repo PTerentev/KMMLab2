@@ -2,12 +2,12 @@
 
 namespace Lab2.Infrastructure.SingleEquation
 {
-    class BisectionSolver : ISingleEquationSolver
+    public class BisectionSolver : ISingleEquationSolver
     {
         public SingleEquationSolvingResult Solve(double a, double b, double accuracy, ISingleEquation singleEquation)
         {
-            int count = default;
-            double c = default;
+            int count = 0;
+            double c = 0;
 
             while (b - a > accuracy)
             {

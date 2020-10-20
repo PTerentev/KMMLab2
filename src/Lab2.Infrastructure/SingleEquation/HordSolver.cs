@@ -7,7 +7,7 @@ namespace Lab2.Infrastructure.SingleEquation
     {
         public SingleEquationSolvingResult Solve(double a, double b, double accuracy, ISingleEquation singleEquation)
         {
-            int count = default;
+            int count = 0;
             while (Math.Abs(b - a) > accuracy)
             {
                 count++;

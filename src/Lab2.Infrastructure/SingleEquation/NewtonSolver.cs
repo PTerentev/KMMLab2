@@ -7,7 +7,7 @@ namespace Lab2.Infrastructure.SingleEquation
     {
         public SingleEquationSolvingResult Solve(double a, double b, double accuracy, ISingleEquation singleEquation)
         {
-            int count = default;
+            int count = 1;
             double x0 = b;
             double x1 = ProcessIteration(x0, singleEquation);
 
