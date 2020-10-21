@@ -10,8 +10,8 @@ namespace Lab2.Infrastructure.SystemEquations
         public SystemEquationsSolvingResult Solve(double accuracy, ISystemEquations systemEquations)
         {
             double norm;
-            double x = 1;
-            double y = 1;
+            double x = 20;
+            double y = -10;
             int count = 0;
 
             var aMatrix = new double[2, 2];

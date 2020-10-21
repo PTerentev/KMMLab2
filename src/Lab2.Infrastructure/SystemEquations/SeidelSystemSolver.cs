@@ -8,20 +8,20 @@ namespace Lab2.Infrastructure.SystemEquations
         public SystemEquationsSolvingResult Solve(double accuracy, ISystemEquations systemEquations)
         {
             int count = 0;
-            double x = 0;
-            double y = 0;
-            double nextX;
-            double nextY;
+            double x = 20;
+            double y = -10;
+            double nextX = x;
+            double nextY = y;
 
             do
             {
                 count++;
 
-                nextX = systemEquations.GetXFromSecondEquation(y);
-                nextY = systemEquations.GetYFromFirstEquation(nextX);
-
                 x = nextX;
                 y = nextY;
+
+                nextX = systemEquations.GetXFromSecondEquation(y);
+                nextY = systemEquations.GetYFromFirstEquation(nextX);
             }
             while (Math.Abs(nextX - x) > accuracy && Math.Abs(nextY - y) > accuracy);
 
