@@ -1,4 +1,5 @@
 ﻿using Lab2.Infrastructure;
+using Lab2.Infrastructure.Abstractions;
 using Lab2.Infrastructure.SingleEquation;
 using Lab2.Infrastructure.SystemEquations;
 using System;
@@ -7,10 +8,6 @@ namespace Lab2
 {
     class Program
     {
-        private const double A = -1;
-        private const double B = 5;
-        private const double Accuracy = 0.0001;
-
         static void Main(string[] args)
         {
             ProcessSingleEquation();
@@ -29,17 +26,19 @@ namespace Lab2
 
             Console.WriteLine("Single equation:");
 
-            var bisectionResult = bisection.Solve(A, B, Accuracy, singleInfo);
-            Console.WriteLine("bisection: X={0}; I={1}", bisectionResult.X, bisectionResult.IterationCount);
+            var singleInput = new SingleEquationInput(-1, 5, 0.0001, singleInfo);
 
-            var nordResult = nord.Solve(A, B, Accuracy, singleInfo);
-            Console.WriteLine("nord: X={0}; I={1}", nordResult.X, nordResult.IterationCount);
+            var bisectionResult = bisection.Solve(singleInput);
+            Console.WriteLine("Bisection: X={0}; I={1}", bisectionResult.X, bisectionResult.IterationCount);
 
-            var newtonResult = newton.Solve(A, B, Accuracy, singleInfo);
-            Console.WriteLine("newton: X={0}; I={1}", newtonResult.X, newtonResult.IterationCount);
+            var nordResult = nord.Solve(singleInput);
+            Console.WriteLine("Nord: X={0}; I={1}", nordResult.X, nordResult.IterationCount);
 
-            var combinedResult = combined.Solve(A, B, Accuracy, singleInfo);
-            Console.WriteLine("combined: X={0}; I={1}", combinedResult.X, combinedResult.IterationCount);
+            var newtonResult = newton.Solve(singleInput);
+            Console.WriteLine("Newton: X={0}; I={1}", newtonResult.X, newtonResult.IterationCount);
+
+            var combinedResult = combined.Solve(singleInput);
+            Console.WriteLine("Combined: X={0}; I={1}", combinedResult.X, combinedResult.IterationCount);
         }
 
         private static void ProcessSystemEquations()
@@ -51,13 +50,15 @@ namespace Lab2
 
             Console.WriteLine("System equations:");
 
-            var newtonResult = newton.Solve(Accuracy, systemInfo);
-            Console.WriteLine("newton: X={0}; Y={1}; I={2}", newtonResult.X, newtonResult.Y, newtonResult.IterationCount);
+            var systemInput = new SystemEquationsInput(20, -10, 0.01, systemInfo);
 
-            var seidelResult = seidel.Solve(Accuracy, systemInfo);
-            Console.WriteLine("seidel: X={0}; Y={1}; I={2}", seidelResult.X, seidelResult.Y, seidelResult.IterationCount);
+            var newtonResult = newton.Solve(systemInput);
+            Console.WriteLine("Newton: X={0}; Y={1}; I={2}", newtonResult.X, newtonResult.Y, newtonResult.IterationCount);
 
-            var iterationResult = iteration.Solve(Accuracy, systemInfo);
+            var seidelResult = seidel.Solve(systemInput);
+            Console.WriteLine("Seidel: X={0}; Y={1}; I={2}", seidelResult.X, seidelResult.Y, seidelResult.IterationCount);
+
+            var iterationResult = iteration.Solve(systemInput);
             Console.WriteLine("iteration: X={0}; Y={1}; I={2}", iterationResult.X, iterationResult.Y, iterationResult.IterationCount);
         }
     }

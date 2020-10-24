@@ -5,10 +5,13 @@ namespace Lab2.Infrastructure.SingleEquation
 {
     public class CombinedSolver : ISingleEquationSolver
     {
-        public SingleEquationSolvingResult Solve(double a, double b, double accuracy, ISingleEquation singleEquation)
+        public SingleEquationSolvingResult Solve(SingleEquationInput input)
         {
             int count = 1;
             double x0, x1, x2, e1;
+            var a = input.A;
+            var b = input.B;
+            var singleEquation = input.SingleEquation;
 
             if (singleEquation.ExecuteEquation(a) * singleEquation.ExecuteSecondDerivedEquation(a) > 0)
             {
@@ -23,7 +26,7 @@ namespace Lab2.Infrastructure.SingleEquation
             x2 = a - ((b - a) * singleEquation.ExecuteEquation(a) / (singleEquation.ExecuteEquation(b) - singleEquation.ExecuteEquation(a)));
             e1 = (x1 + x2) / 2;
 
-            while (Math.Abs(e1 - x1) > accuracy)
+            while (Math.Abs(e1 - x1) > input.Accuracy)
             {
                 count++;
                 a = x1;

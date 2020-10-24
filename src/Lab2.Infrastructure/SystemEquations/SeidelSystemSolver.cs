@@ -5,11 +5,11 @@ namespace Lab2.Infrastructure.SystemEquations
 {
     public class SeidelSystemSolver : ISystemEquationsSolver
     {
-        public SystemEquationsSolvingResult Solve(double accuracy, ISystemEquations systemEquations)
+        public SystemEquationsSolvingResult Solve(SystemEquationsInput input)
         {
             int count = 0;
-            double x = 20;
-            double y = -10;
+            double x = input.X;
+            double y = input.Y;
             double nextX = x;
             double nextY = y;
 
@@ -20,10 +20,10 @@ namespace Lab2.Infrastructure.SystemEquations
                 x = nextX;
                 y = nextY;
 
-                nextX = systemEquations.GetXFromSecondEquation(y);
-                nextY = systemEquations.GetYFromFirstEquation(nextX);
+                nextX = input.SystemEquations.GetXFromSecondEquation(y);
+                nextY = input.SystemEquations.GetYFromFirstEquation(nextX);
             }
-            while (Math.Abs(nextX - x) > accuracy && Math.Abs(nextY - y) > accuracy);
+            while (Math.Abs(nextX - x) > input.Accuracy && Math.Abs(nextY - y) > input.Accuracy);
 
             return new SystemEquationsSolvingResult(y, x, count);
         }

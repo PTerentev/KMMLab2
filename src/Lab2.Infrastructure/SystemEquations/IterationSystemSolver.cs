@@ -5,12 +5,12 @@ namespace Lab2.Infrastructure.SystemEquations
 {
     public class IterationSystemSolver : ISystemEquationsSolver
     {
-        public SystemEquationsSolvingResult Solve(double accuracy, ISystemEquations systemEquations)
+        public SystemEquationsSolvingResult Solve(SystemEquationsInput input)
         {
             int count = 0;
 
-            double x = 20;
-            double y = -10;
+            double x = input.X;
+            double y = input.Y;
 
             double nextX = 0;
             double nextY = 0;
@@ -22,10 +22,10 @@ namespace Lab2.Infrastructure.SystemEquations
                 x = nextX;
                 y = nextY;
 
-                nextX = systemEquations.GetXFromSecondEquation(y);
-                nextY = systemEquations.GetYFromFirstEquation(x);
+                nextX = input.SystemEquations.GetXFromSecondEquation(y);
+                nextY = input.SystemEquations.GetYFromFirstEquation(x);
             }
-            while (Math.Max(Math.Abs(nextX - x), Math.Abs(nextY - y)) > accuracy);
+            while (Math.Max(Math.Abs(nextX - x), Math.Abs(nextY - y)) > input.Accuracy);
 
             return new SystemEquationsSolvingResult(nextY, nextX, count);
         }

@@ -5,17 +5,17 @@ namespace Lab2.Infrastructure.SingleEquation
 {
     public sealed class NewtonSolver : ISingleEquationSolver
     {
-        public SingleEquationSolvingResult Solve(double a, double b, double accuracy, ISingleEquation singleEquation)
+        public SingleEquationSolvingResult Solve(SingleEquationInput input)
         {
             int count = 1;
-            double x0 = b;
-            double x1 = ProcessIteration(x0, singleEquation);
+            double x0 = input.B;
+            double x1 = ProcessIteration(x0, input.SingleEquation);
 
-            while (Math.Abs(x1 - x0) > accuracy)
+            while (Math.Abs(x1 - x0) > input.Accuracy)
             {
                 count++;
                 x0 = x1;
-                x1 = ProcessIteration(x0, singleEquation);
+                x1 = ProcessIteration(x0, input.SingleEquation);
             }
 
             return new SingleEquationSolvingResult(x1, count);

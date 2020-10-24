@@ -1,18 +1,17 @@
 ﻿using Lab2.Infrastructure.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Lab2.Infrastructure.SystemEquations
 {
     public class NewtonSystemSolver : ISystemEquationsSolver
     {
-        public SystemEquationsSolvingResult Solve(double accuracy, ISystemEquations systemEquations)
+        public SystemEquationsSolvingResult Solve(SystemEquationsInput input)
         {
             double norm;
             double x = 20;
             double y = -10;
             int count = 0;
+            var systemEquations = input.SystemEquations;
 
             var aMatrix = new double[2, 2];
 
@@ -37,7 +36,7 @@ namespace Lab2.Infrastructure.SystemEquations
                 var b2 = systemEquations.ExecuteSecondEquation(x, y);
                 norm = Math.Sqrt(Math.Pow(b1, 2) + Math.Pow(b2, 2));
             }
-            while (norm > accuracy);
+            while (norm > input.Accuracy);
 
             return new SystemEquationsSolvingResult(y, x, count);
         }
