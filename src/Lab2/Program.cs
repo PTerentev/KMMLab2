@@ -26,7 +26,7 @@ namespace Lab2
 
             Console.WriteLine("Single equation:");
 
-            var singleInput = new SingleEquationInput(-1, 5, 0.0001, singleInfo);
+            var singleInput = new SingleEquationInput(-2, 2, 0.0001, singleInfo);
 
             var bisectionResult = bisection.Solve(singleInput);
             Console.WriteLine("Bisection: X={0}; I={1}", bisectionResult.X, bisectionResult.IterationCount);

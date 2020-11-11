@@ -8,8 +8,8 @@ namespace Lab2.Infrastructure.SystemEquations
         public SystemEquationsSolvingResult Solve(SystemEquationsInput input)
         {
             double norm;
-            double x = 20;
-            double y = -10;
+            double x = input.X;
+            double y = input.Y;
             int count = 0;
             var systemEquations = input.SystemEquations;
 
